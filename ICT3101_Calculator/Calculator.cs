@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -7,6 +8,8 @@ namespace ICT3101_Calculator
 {
     public class Calculator
     {
+        private Mock<IFileReader> fileReader = new Mock<IFileReader>();
+
         public Calculator() { }
         public double DoOperation(double num1, double num2, string op)
         {
@@ -54,6 +57,10 @@ namespace ICT3101_Calculator
                 case "e":
                     // Ask the user to enter a non-zero divisor.
                     result = AverageFailure(num1, num2);
+                    break;
+                case "g":
+                    // Ask the user to enter a non-zero divisor.
+                    result = GenMagicNum(num1, fileReader);
                     break;
                 // Return text for an incorrect option entry.
                 default:
@@ -193,5 +200,23 @@ namespace ICT3101_Calculator
 
             return result;
         }
+
+        public double GenMagicNum(double input, Mock<IFileReader> fileReader)
+        {
+            double result = 0;
+            int choice = Convert.ToInt16(input);
+            //Dependency------------------------------
+         
+            //----------------------------------------
+            string[] magicStrings = fileReader.Read("D:/SIT/Year3/ICT3101/Lab/Lab1-Setupunit/ICT3101_Calculator/ICT3101_Calculator/MagicNumbers.txt");
+            if ((choice >= 0) && (choice < magicStrings.Length))
+            {
+                result = Convert.ToDouble(magicStrings[choice]);
+            }
+            result = (result > 0) ? (2 * result) : (-2 * result);
+            return result;
+        }
+
+
     }
 }

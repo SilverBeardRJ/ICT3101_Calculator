@@ -48,6 +48,7 @@ namespace ICT3101_Calculator
                 Console.WriteLine("\tv - Availibility");
                 Console.WriteLine("\tn - Faillure Intensity");
                 Console.WriteLine("\te - Average number of expected failures");
+                Console.WriteLine("\tg - GenMagicNum");
                 Console.Write("Your option? ");
                 string op = Console.ReadLine();
                 try
